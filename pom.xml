@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.apermar1301</groupId>
+    <artifactId>Pipeline</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>names-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>names</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.github.apermar1301.Names</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>greeting-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>greeting</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.github.apermar1301.Greeting</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>greetpeople-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>greetpeople</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.github.apermar1301.GreetPeople</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-jars</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="${project.build.directory}/${project.build.finalName}-names.jar"
+                                      tofile="${project.build.directory}/names.jar" overwrite="true"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}-greeting.jar"
+                                      tofile="${project.build.directory}/greeting.jar" overwrite="true"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}-greetpeople.jar"
+                                      tofile="${project.build.directory}/greetpeople.jar" overwrite="true"/>
+
+                                <copy file="${project.build.directory}/${project.build.finalName}-names.jar"
+                                      tofile="${project.basedir}/names.jar" overwrite="true"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}-greeting.jar"
+                                      tofile="${project.basedir}/greeting.jar" overwrite="true"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}-greetpeople.jar"
+                                      tofile="${project.basedir}/greetpeople.jar" overwrite="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
